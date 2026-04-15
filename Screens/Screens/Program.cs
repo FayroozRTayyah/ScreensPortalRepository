@@ -1,8 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddDbContext<Screens.data.AppContext>(options =>
+    options.UseSqlServer(
+        //"Data Source=localdb\\MSSQLLocalDB;Initial Catalog=test;User ID=arsaqqa;Password=123456;TrustServerCertificate=True"
+        builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("ERROR : NO Connection String")
+  )
+);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
