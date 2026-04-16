@@ -11,9 +11,9 @@ using Screens.data;
 
 namespace Screens.Migrations
 {
-    [DbContext(typeof(AppContext))]
-    [Migration("20260415095154_initial_database")]
-    partial class initial_database
+    [DbContext(typeof(Screens.data.AppDbContext))]
+    [Migration("20260416065431_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

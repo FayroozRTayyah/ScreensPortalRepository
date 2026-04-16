@@ -10,7 +10,7 @@ using Screens.data;
 
 namespace Screens.Migrations
 {
-    [DbContext(typeof(AppContext))]
+    [DbContext(typeof(Screens.data.AppDbContext))]
     partial class AppContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

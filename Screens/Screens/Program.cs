@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<Screens.data.AppContext>(options =>
+builder.Services.AddDbContext<Screens.data.AppDbContext>(options =>
     options.UseSqlServer(
         //"Data Source=localdb\\MSSQLLocalDB;Initial Catalog=test;User ID=arsaqqa;Password=123456;TrustServerCertificate=True"
         builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("ERROR : NO Connection String")

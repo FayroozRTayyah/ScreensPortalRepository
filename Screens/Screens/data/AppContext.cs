@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Screens.Models;
 namespace Screens.data
 {
-    public class AppContext:DbContext 
+    public class AppDbContext : DbContext 
     {
         public DbSet<Image> images { get; set; }
-        public AppContext()
+        public AppDbContext()
         {
         }
 
-        public AppContext(DbContextOptions<AppContext> options)
+        public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
         }
