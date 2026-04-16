@@ -1,0 +1,117 @@
+﻿@model Screens.Models.Image
+
+<style>
+    body {
+        font-family: 'Cairo', sans-serif;
+        background: #f4f6f9;
+    }
+
+    .card-form {
+        max-width: 600px;
+        margin: 30px auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+        .card-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #122e59;
+        }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    .btn-save {
+        width: 100%;
+        padding: 12px;
+        background: #122e59;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+        .btn-save:hover {
+            background: #27ae60;
+        }
+
+    .preview {
+        margin-top: 10px;
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: none;
+        border-radius: 10px;
+    }
+</style>
+
+<div class="card-form">
+    <h2>إضافة صورة</h2>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label>العنوان</label>
+            <input asp-for="imageTitle" />
+        </div>
+
+        <div class="form-group">
+            <label>الوصف</label>
+            <input asp-for="imageDescription" />
+        </div>
+
+        <div class="form-group">
+            <label>اختيار الصورة</label>
+            <input asp-for="ImageFile" type="file" accept="image/*" onchange="previewImage(event)" />
+            <img id="imgPreview" class="preview" />
+        </div>
+
+        <div class="form-group">
+            <label>الحالة</label>
+            <input asp-for="image_status" type="number" />
+        </div>
+
+        <div class="form-group">
+            <label>من تاريخ</label>
+            <input asp-for="imagefromDate" type="date" />
+        </div>
+
+        <div class="form-group">
+            <label>إلى تاريخ</label>
+            <input asp-for="imagetoDate" type="date" />
+        </div>
+
+        <button type="submit" class="btn-save">حفظ</button>
+    </form>
+</div>
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var img = document.getElementById("imgPreview");
+            img.src = reader.result;
+            img.style.display = "block";
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

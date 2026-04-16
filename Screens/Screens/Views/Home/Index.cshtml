@@ -29,7 +29,7 @@
         }
 
     .add-btn {
-        background: #2ecc71;
+        background: #122e59;
         color: white;
         padding: 10px 15px;
         border-radius: 6px;
@@ -100,8 +100,7 @@
 
 <div class="header">
     <h2>معرض الصور</h2>
-
-    <a class="add-btn" href="/Image/Create">
+    <a asp-controller="Home" asp-action="Create" class="add-btn">
         + إضافة صورة
     </a>
 </div>
@@ -117,8 +116,8 @@
             <div class="card-content">
                 <p>@item.imageTitle</p>
 
-                <a class="delete-btn"
-                   href="/Image/Delete/@item.imageID">
+                <a asp-controller="Home" asp-action="Delete" asp-route-id="@item.imageID"
+                   class="delete-btn">
                     حذف
                 </a>
             </div>

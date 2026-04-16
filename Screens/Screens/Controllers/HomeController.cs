@@ -27,11 +27,54 @@ namespace Screens.Controllers
 
             return View(images);
         }
-
-        public IActionResult Privacy()
+        public IActionResult Create()
         {
             return View();
         }
+
+
+        [HttpPost]
+        public IActionResult Create(Image model)
+        {
+            if (model.ImageFile != null)
+            {
+                string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+
+                if (!Directory.Exists(folder))
+                    Directory.CreateDirectory(folder);
+
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
+
+                string filePath = Path.Combine(folder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ImageFile.CopyTo(stream);
+                }
+
+                model.imageBath = "/uploads/" + fileName;
+            }
+
+            _context.images.Add(model);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult Delete(int id)
+        {
+            var image = _context.images.FirstOrDefault(x => x.imageID == id);
+
+            if (image != null)
+            {
+                _context.images.Remove(image);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

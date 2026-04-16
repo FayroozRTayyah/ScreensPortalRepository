@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Screens.Models
 {
@@ -14,6 +15,9 @@ namespace Screens.Models
         public DateOnly imagefromDate { get; set; }
         public DateOnly imagetoDate { get;set ; }
         public int image_status { get; set; }
+
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
 
     }
 }
