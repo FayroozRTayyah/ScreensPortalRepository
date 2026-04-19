@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Screens.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial_database : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace Screens.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     imageTitle = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     imageDescription = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    imageBath = table.Column<string>(type: "nvarchar(20)", maxLength: 50, nullable: false),
+                    imageBath = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     imagefromDate = table.Column<DateOnly>(type: "date", nullable: false),
                     imagetoDate = table.Column<DateOnly>(type: "date", nullable: false),
                     image_status = table.Column<int>(type: "int", nullable: false)

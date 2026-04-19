@@ -11,9 +11,9 @@ using Screens.data;
 
 namespace Screens.Migrations
 {
-    [DbContext(typeof(Screens.data.AppDbContext))]
-    [Migration("20260416065431_Initial")]
-    partial class Initial
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20260419080117_initial_database")]
+    partial class initial_database
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,8 +35,8 @@ namespace Screens.Migrations
 
                     b.Property<string>("imageBath")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("imageDescription")
                         .IsRequired()
