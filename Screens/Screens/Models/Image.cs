@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Screens.Models
 {
@@ -8,9 +9,9 @@ namespace Screens.Models
        public int imageID { get; set; }
         [Required(ErrorMessage = "الرجاء إدخال عنوان الصورة"), MaxLength(200)]
         public string imageTitle { get; set; }
-        [Required(ErrorMessage = "الرجاء إدخال وصف الصورة"), MaxLength(200)]
+        [ MaxLength(200),AllowNull]
         public string imageDescription { get; set; }
-        [MaxLength(50)]
+        [MaxLength(20), Required(ErrorMessage = "الرجاء اختيار الصورة")]
         public string imageBath { get; set; }
         public DateOnly imagefromDate { get; set; }
         public DateOnly imagetoDate { get;set ; }

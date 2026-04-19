@@ -36,27 +36,40 @@ namespace Screens.Controllers
         [HttpPost]
         public IActionResult Create(Image model)
         {
-            if (model.ImageFile != null)
+ model.imageBath = model.ImageFile.FileName;
+            if (!ModelState.IsValid)
             {
-                string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
-
-                if (!Directory.Exists(folder))
-                    Directory.CreateDirectory(folder);
-
-                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
-
-                string filePath = Path.Combine(folder, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                return View();
+            }
+            else
+            {
+               
+                if (model.ImageFile != null)
                 {
-                    model.ImageFile.CopyTo(stream);
+                    string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+
+                    if (!Directory.Exists(folder))
+                        Directory.CreateDirectory(folder);
+
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
+
+                    string filePath = Path.Combine(folder, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        model.ImageFile.CopyTo(stream);
+                    }
+
+                    model.imageBath = "/uploads/" + fileName;
                 }
 
-                model.imageBath = "/uploads/" + fileName;
+                _context.images.Add(model);
+                _context.SaveChanges();
+
+
             }
 
-            _context.images.Add(model);
-            _context.SaveChanges();
+
 
             return RedirectToAction("Index");
         }

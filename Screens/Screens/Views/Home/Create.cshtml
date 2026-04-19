@@ -67,13 +67,16 @@
 <div class="card-form">
     <h2>إضافة صورة</h2>
 
-    <form asp-action="Create" method="post" enctype="multipart/form-data">
+   
+  
 
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+       
         <div class="form-group">
             <label>العنوان</label>
             <input asp-for="imageTitle" />
         </div>
-
+        <span asp-validation-for="imageTitle" class="text-danger"></span>
         <div class="form-group">
             <label>الوصف</label>
             <input asp-for="imageDescription" />
@@ -84,6 +87,9 @@
             <input asp-for="ImageFile" type="file" accept="image/*" onchange="previewImage(event)" />
             <img id="imgPreview" class="preview" />
         </div>
+        <hidden asp-for="imageBath"></hidden>
+   
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
 
         <div class="form-group">
             <label>الحالة</label>
@@ -109,7 +115,9 @@
         var reader = new FileReader();
         reader.onload = function () {
             var img = document.getElementById("imgPreview");
+            
             img.src = reader.result;
+           
             img.style.display = "block";
         }
         reader.readAsDataURL(event.target.files[0]);
