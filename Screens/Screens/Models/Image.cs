@@ -11,7 +11,7 @@ namespace Screens.Models
         public string imageTitle { get; set; }
         [ MaxLength(200),AllowNull]
         public string imageDescription { get; set; }
-        [MaxLength(20), Required(ErrorMessage = "الرجاء اختيار الصورة")]
+        [MaxLength(100), Required(ErrorMessage = "الرجاء اختيار الصورة")]
         public string imageBath { get; set; }
         public DateOnly imagefromDate { get; set; }
         public DateOnly imagetoDate { get;set ; }
