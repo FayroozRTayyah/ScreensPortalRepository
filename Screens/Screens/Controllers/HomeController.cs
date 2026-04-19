@@ -68,7 +68,8 @@ namespace Screens.Controllers
 
             if (image != null)
             {
-                _context.images.Remove(image);
+                _context.images.Update(image);
+                image.image_status = 0;
                 _context.SaveChanges();
             }
 
