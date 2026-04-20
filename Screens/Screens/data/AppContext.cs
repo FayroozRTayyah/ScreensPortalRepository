@@ -6,6 +6,7 @@ namespace Screens.data
     public class AppDbContext : DbContext 
     {
         public DbSet<Image> images { get; set; }
+        public DbSet<Screen>screens { get; set; }
         public AppDbContext()
         {
         }

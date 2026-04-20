@@ -2,7 +2,7 @@
 
 namespace Screens.Models
 {
-    public class screen
+    public class Screen
     {
         public int screenId { get; set; }
         [Required(ErrorMessage = "الرجاء إدخال اسم الشاشة"), MaxLength(200)]
