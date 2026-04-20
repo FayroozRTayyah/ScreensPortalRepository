@@ -31,7 +31,9 @@ namespace Screens.Controllers
         }
         public IActionResult Create()
         {
-            return View();
+            var model = new Screens.Models.Image();
+          
+            return View(model);
         }
 
         [HttpPost]
