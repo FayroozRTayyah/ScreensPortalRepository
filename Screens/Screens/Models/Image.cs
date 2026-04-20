@@ -8,6 +8,10 @@ namespace Screens.Models
     public class Image
     {
        public int imageID { get; set; }
+        [Required]
+        public int imageOrder{ get; set; }
+        [Required ,DefaultValue("0")]
+        public int imageScreenId { get; set; }
         [Required(ErrorMessage = "الرجاء إدخال عنوان الصورة"), MaxLength(200)]
         public string imageTitle { get; set; }
         [ MaxLength(200),AllowNull]
@@ -15,9 +19,9 @@ namespace Screens.Models
 
         [MaxLength(100)]
         public string imageBath { get; set; }
-        //[DefaultValue=]
-        public DateOnly imagefromDate { get; set; }
-        public DateOnly imagetoDate { get;set ; }
+
+        public DateTime imagefromDate { get; set; } = DateTime.UtcNow;
+        public DateTime imagetoDate { get;set ; } = DateTime.UtcNow;
         public int image_status { get; set; }
 
         [NotMapped]
