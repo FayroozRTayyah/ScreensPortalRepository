@@ -4,6 +4,7 @@ using Screens.Models;
 using System.Diagnostics;
 using Screens.data;
 using System.Linq;
+using Microsoft.AspNetCore.Antiforgery;
 
 namespace Screens.Controllers
 {
@@ -33,8 +34,11 @@ namespace Screens.Controllers
         }
 
         [HttpPost]
+        [RequireAntiforgeryToken]
         public IActionResult Create(Image model)
         {
+            ModelState.Remove("imageBath");
+
             if (model.ImageFile == null)
             {
                 ModelState.AddModelError("ImageFile", "الرجاء اختيار صورة");
@@ -59,6 +63,7 @@ namespace Screens.Controllers
                 model.ImageFile.CopyTo(stream);
             }
 
+            model.image_status = 1;
             model.imageBath = "/uploads/" + fileName;
 
             _context.images.Add(model);

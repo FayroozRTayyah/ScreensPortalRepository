@@ -72,6 +72,8 @@
 
     <form asp-action="Create" method="post" enctype="multipart/form-data">
        
+        @Html.AntiForgeryToken()
+
         <div class="form-group">
             <label>العنوان</label>
             <input asp-for="imageTitle" />
@@ -87,14 +89,15 @@
             <input asp-for="ImageFile" type="file" accept="image/*" onchange="previewImage(event)" />
             <img id="imgPreview" class="preview" />
         </div>
+        <hidden asp-for="imageBath" id="imageBath"></hidden>
      
    
         <span asp-validation-for="ImageFile" class="text-danger"></span>
 
-        <div class="form-group">
+        @* <div class="form-group">
             <label>الحالة</label>
             <input asp-for="image_status" type="number" />
-        </div>
+        </div> *@
 
         <div class="form-group">
             <label>من تاريخ</label>
@@ -115,9 +118,14 @@
         var reader = new FileReader();
         reader.onload = function () {
             var img = document.getElementById("imgPreview");
-            
+            // const imageURL = URL.createObjectURL(img);
             img.src = reader.result;
-           
+           // document.getElementById("imageBath").value = img.imageBath.url;
+           // document.getElementById("imageBath").value = img.imageBath;
+            var imageBath =img.src;
+             console.log("imageBath");
+            console.log(imageBath);
+
             img.style.display = "block";
         }
         reader.readAsDataURL(event.target.files[0]);
