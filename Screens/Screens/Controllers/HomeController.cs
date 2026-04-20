@@ -72,6 +72,8 @@ namespace Screens.Controllers
             return RedirectToAction("Index");
         }
 
+
+       
         public IActionResult Delete(int id)
         {
             var image = _context.images.FirstOrDefault(x => x.imageID == id);
