@@ -115,6 +115,7 @@
 
 <script>
     function previewImage(event) {
+
         var reader = new FileReader();
         reader.onload = function () {
             var img = document.getElementById("imgPreview");
@@ -130,4 +131,87 @@
         }
         reader.readAsDataURL(event.target.files[0]);
     }
+</script>
+
+<script>
+
+    document.querySelector("form").addEventListener("submit", function (e) {
+
+        let isValid = true;
+
+       
+        let title = document.querySelector("[name='imageTitle']");
+        let desc = document.querySelector("[name='imageDescription']");
+        let file = document.querySelector("[name='ImageFile']");
+        let fromDate = document.querySelector("[name='imagefromDate']");
+        let toDate = document.querySelector("[name='imagetoDate']");
+
+     [title, desc, file, fromDate, toDate].forEach(el => {
+            el.style.border = "1px solid #ddd";
+        });
+
+        // title validation
+        if (title.value.trim() === "") {
+            title.style.border = "2px solid red";
+            isValid = false;
+        }
+
+        // description validation
+        if (desc.value.trim() === "") {
+            desc.style.border = "2px solid red";
+            isValid = false;
+        }
+
+
+        // fromDate validation
+        if(fromDate.value.trim() === ""){
+            fromDate.style.border = "2px solid red";
+            isValid = false;
+        }
+        
+         // toDate validation
+        if(toDate.value.trim() === ""){
+            toDate.style.border = "2px solid red";
+            isValid = false;
+        }
+
+
+        // date validation
+        if (fromDate.value && toDate.value) {
+            console.log(" date validation")
+            if (new Date(fromDate.value) > new Date(toDate.value)) {
+                fromDate.style.border = "2px solid red";
+                toDate.style.border = "2px solid red";
+
+                toastr["error"]("تاريخ البداية يجب أن يكون قبل تاريخ النهاية");
+                isValid = false;
+            }
+        }
+
+
+         // image validation
+        if (file.files.length === 0) {
+            file.style.border = "2px solid red";
+            isValid = false;
+        }
+
+       let allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+    if (file.files.length > 0 && !allowedTypes.includes(file.files[0].type)) {
+        alert("يرجى اختيار صورة بصيغة JPG أو PNG فقط");
+        file.style.border = "2px solid red";
+        isValid = false;
+    }
+
+        let maxSize = 2 * 1024 * 1024;
+    if (file.files.length > 0 && file.files[0].size > maxSize) {
+        alert("حجم الصورة يجب أن يكون أقل من 2MB");
+        isValid = false;
+    }
+
+        // منع الإرسال إذا في خطأ
+        if (!isValid) {
+            e.preventDefault();
+        }
+
+    });
 </script>
