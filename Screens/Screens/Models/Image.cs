@@ -10,7 +10,7 @@ namespace Screens.Models
        public int imageID { get; set; }
         [Required]
         public int imageOrder{ get; set; }
-        [Required ,DefaultValue("0")]
+        [Required ,DefaultValue("0"),ForeignKey(nameof(screen))]
         public int imageScreenId { get; set; }
         [Required(ErrorMessage = "الرجاء إدخال عنوان الصورة"), MaxLength(200)]
         public string imageTitle { get; set; }
@@ -27,6 +27,9 @@ namespace Screens.Models
         [NotMapped]
         [Required(ErrorMessage = "الرجاء اختيار الصورة")]
         public IFormFile ImageFile { get; set; }
+
+     
+        public Screen screen { get; set; }
 
     }
 }

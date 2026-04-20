@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Screens.data;
 
@@ -11,9 +12,11 @@ using Screens.data;
 namespace Screens.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260420074330_third")]
+    partial class third
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,8 +65,6 @@ namespace Screens.Migrations
 
                     b.HasKey("imageID");
 
-                    b.HasIndex("imageScreenId");
-
                     b.ToTable("images");
                 });
 
@@ -91,17 +92,6 @@ namespace Screens.Migrations
                     b.HasKey("screenId");
 
                     b.ToTable("screens");
-                });
-
-            modelBuilder.Entity("Screens.Models.Image", b =>
-                {
-                    b.HasOne("Screens.Models.Screen", "screen")
-                        .WithMany()
-                        .HasForeignKey("imageScreenId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("screen");
                 });
 #pragma warning restore 612, 618
         }

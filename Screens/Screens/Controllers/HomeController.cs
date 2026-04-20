@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Screens.data;
 using Screens.Models;
 using System.Diagnostics;
-using Screens.data;
 using System.Linq;
-using Microsoft.AspNetCore.Antiforgery;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Screens.Controllers
 {
@@ -35,7 +36,7 @@ namespace Screens.Controllers
 
         [HttpPost]
         [RequireAntiforgeryToken]
-        public IActionResult Create(Image model)
+        public IActionResult Create(Screens.Models.Image model)
         {
             ModelState.Remove("imageBath");
 
@@ -96,6 +97,20 @@ namespace Screens.Controllers
             {
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             });
+        }
+
+        [HttpPost]
+        [RequireAntiforgeryToken]
+        public IActionResult Edit(Screens.Models.Image model) {
+            var image = _context.images.FirstOrDefault(x => x.imageID == model.imageID);
+            if (!ModelState.IsValid)
+            {
+
+                _context.images.Update(image);
+               
+                _context.SaveChanges();
+            }
+        return View ();
         }
     }
 }
