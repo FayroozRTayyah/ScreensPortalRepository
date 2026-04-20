@@ -1,5 +1,4 @@
 ﻿@model List<Screens.Models.Image>
-
 <!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -92,6 +91,18 @@
         display: inline-block;
     }
 
+    .edit-btn {
+        background: #0d6efd;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: 0.3s;
+        display: inline-block;
+    }
         .delete-btn:hover {
             background: #c0392b;
         }
@@ -103,6 +114,8 @@
     <a asp-controller="Home" asp-action="Create" class="add-btn">
         + إضافة صورة
     </a>
+
+  
 </div>
 
 <div class="gallery">
@@ -115,10 +128,15 @@
 
             <div class="card-content">
                 <p>@item.imageTitle</p>
-
-                <a asp-controller="Home" asp-action="Delete" asp-route-id="@item.imageID"
-                   class="delete-btn">
+                <a href="#" class="delete-btn" onclick="confirmDelete(@item.imageID)">
                     حذف
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="Edit"
+                   asp-route-id="@item.imageID"
+                   class="edit-btn">
+                    تعديل
                 </a>
             </div>
 
@@ -126,3 +144,42 @@
     }
 
 </div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">تأكيد الحذف</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                هل أنت متأكد أنك تريد حذف هذه الصورة؟
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">لا</button>
+                <button class="btn btn-danger" onclick="deleteItem()">نعم</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+      let deleteId = null;
+
+    function confirmDelete(id) {
+        deleteId = id;
+
+        var modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        modal.show();
+    }
+
+    function deleteItem() {
+
+        window.location.href = "/Home/Delete/" + deleteId;
+
+    }
+</script>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Screens.data;
 using Screens.Models;
@@ -23,17 +24,18 @@ namespace Screens.Controllers
         public IActionResult Index()
         {
             var images = _context.images
+                   
                 .Where(x => x.image_status == 1)
                 
                 .ToList();
 
             return View(images);
         }
+  
+
         public IActionResult Create()
         {
-            var model = new Screens.Models.Image();
-          
-            return View(model);
+            return View();
         }
 
         [HttpPost]
@@ -41,6 +43,7 @@ namespace Screens.Controllers
         public IActionResult Create(Screens.Models.Image model)
         {
             ModelState.Remove("imageBath");
+         ModelState.Remove("screen");
 
             if (model.ImageFile == null)
             {
@@ -49,7 +52,7 @@ namespace Screens.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View(model); 
+                 return View(model); 
             }
 
             string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
@@ -68,6 +71,9 @@ namespace Screens.Controllers
 
             model.image_status = 1;
             model.imageBath = "/uploads/" + fileName;
+            
+            
+
 
             _context.images.Add(model);
             _context.SaveChanges();
@@ -75,6 +81,8 @@ namespace Screens.Controllers
             return RedirectToAction("Index");
         }
 
+
+       
         public IActionResult Delete(int id)
         {
             var image = _context.images.FirstOrDefault(x => x.imageID == id);
@@ -99,18 +107,40 @@ namespace Screens.Controllers
             });
         }
 
-        [HttpPost]
+        public IActionResult Edit(int id)
+        {
+            var image = _context.images.FirstOrDefault(x => x.imageID == id);
+
+            if (image == null)
+                return NotFound();
+
+            return View(image);
+        }
+
+
+
         [RequireAntiforgeryToken]
+        [HttpPost]
         public IActionResult Edit(Screens.Models.Image model) {
             var image = _context.images.FirstOrDefault(x => x.imageID == model.imageID);
+            
+
             if (!ModelState.IsValid)
             {
 
+                image.imageTitle = model.imageTitle;
+                image.imagefromDate = model.imagefromDate;
+
+                image.imageDescription = model.imageDescription;
+                image.imagetoDate = model.imagetoDate;
+
+                
                 _context.images.Update(image);
                
                 _context.SaveChanges();
+                return RedirectToAction("Index");
             }
-        return View ();
+        return View (model);
         }
     }
 }

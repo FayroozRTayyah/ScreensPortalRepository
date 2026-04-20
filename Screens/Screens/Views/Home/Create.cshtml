@@ -109,8 +109,62 @@
             <input asp-for="imagetoDate" class="form-control" type="date" />
         </div>
 
-        <button type="submit" class="btn-save">حفظ</button>
+        <div class="form-group">
+            <label>ترتيب الصورة</label>
+            <input asp-for="imageOrder"  />
+
+        </div>
+        <div class="form-group">
+            <label>اختيار الشاشة</label>
+            <select asp-for="imageScreenId" asp-items="ViewBag.Screens"></select>
+
+        </div>
+       
+        <button type="button" class="btn-save" onclick="confirmSave()">
+            حفظ
+        </button>
     </form>
+</div>
+
+
+<div class="modal fade" id="saveModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0 rounded-4">
+
+            <!-- Header -->
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold text-primary">
+                    تأكيد الحفظ
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body text-center py-4">
+
+               
+
+                <p class="mt-3 fs-6 text-secondary">
+                    هل أنت متأكد أنك تريد حفظ هذه الصورة؟
+                </p>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer border-0 d-flex justify-content-center gap-2">
+
+                <button class="btn btn-light px-4" data-bs-dismiss="modal">
+                    لا
+                </button>
+
+                <button class="btn btn-primary px-4 fw-bold" onclick="saveItem()">
+                    نعم، حفظ
+                </button>
+
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <script>
@@ -135,11 +189,19 @@
 
 <script>
 
-    document.querySelector("form").addEventListener("submit", function (e) {
+ 
+
+        
+
+</script>
+
+<script>
+    function confirmSave() {
+
 
         let isValid = true;
 
-       
+
         let title = document.querySelector("[name='imageTitle']");
         let desc = document.querySelector("[name='imageDescription']");
         let file = document.querySelector("[name='ImageFile']");
@@ -168,7 +230,7 @@
             fromDate.style.border = "2px solid red";
             isValid = false;
         }
-        
+
          // toDate validation
         if(toDate.value.trim() === ""){
             toDate.style.border = "2px solid red";
@@ -182,8 +244,26 @@
             if (new Date(fromDate.value) > new Date(toDate.value)) {
                 fromDate.style.border = "2px solid red";
                 toDate.style.border = "2px solid red";
+                      toastr["error"]("تاريخ البداية يجب أن يكون قبل تاريخ النهاية", "", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": true,
+                            "positionClass": "toast-top-left",
+                            "preventDuplicates": true,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "3000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        })
 
-                toastr["error"]("تاريخ البداية يجب أن يكون قبل تاريخ النهاية");
+
+
                 isValid = false;
             }
         }
@@ -197,14 +277,51 @@
 
        let allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
     if (file.files.length > 0 && !allowedTypes.includes(file.files[0].type)) {
-        alert("يرجى اختيار صورة بصيغة JPG أو PNG فقط");
+
+             toastr["error"]("يرجى اختيار صورة بصيغة JPG أو PNG فقط", "", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": true,
+                            "positionClass": "toast-top-left",
+                            "preventDuplicates": true,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "3000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        })
+
         file.style.border = "2px solid red";
         isValid = false;
     }
 
         let maxSize = 2 * 1024 * 1024;
     if (file.files.length > 0 && file.files[0].size > maxSize) {
-        alert("حجم الصورة يجب أن يكون أقل من 2MB");
+
+         toastr["error"]("حجم الصورة يجب أن يكون أقل من 2MB", "", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": true,
+                            "positionClass": "toast-top-left",
+                            "preventDuplicates": true,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "3000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        })
+
+
         isValid = false;
     }
 
@@ -213,5 +330,14 @@
             e.preventDefault();
         }
 
-    });
+        
+
+
+        var modal = new bootstrap.Modal(document.getElementById('saveModal'));
+        modal.show();
+    }
+
+    function saveItem() {
+        document.querySelector("form").submit();
+    }
 </script>

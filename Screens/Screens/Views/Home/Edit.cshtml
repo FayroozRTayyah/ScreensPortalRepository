@@ -1,5 +1,154 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Screens.Models.Image
+
+<style>
+    body {
+        font-family: 'Cairo', sans-serif;
+        background: #f4f6f9;
+    }
+
+    .card-form {
+        max-width: 600px;
+        margin: 30px auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+        .card-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #122e59;
+        }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    .btn-save {
+        width: 100%;
+        padding: 12px;
+        background: #122e59;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+        .btn-save:hover {
+            background: #27ae60;
+        }
+
+    .preview {
+        margin-top: 10px;
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+    }
+</style>
+
+<div class="card-form">
+    <h2>تعديل الصورة</h2>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+
+        @Html.AntiForgeryToken()
+
+      
+        <input asp-for="imageID" type="hidden" />
+
+        <div class="form-group">
+            <label>العنوان</label>
+            <input asp-for="imageTitle" id="imageTitle" />
+        </div>
+
+        <div class="form-group">
+            <label>الوصف</label>
+            <input asp-for="imageDescription" id="imageDescription" />
+        </div>
+
+        <div class="form-group">
+            <label>الصورة الحالية</label>
+            <img src="@Model.imageBath" class="preview" />
+        </div>
+
+        @* <div class="form-group">
+            <label>تغيير الصورة</label>
+            <input asp-for="ImageFile" type="file" onchange="previewImage(event)" />
+            <img id="imgPreview" class="preview" style="display:none;" />
+        </div> *@
+
+        <div class="form-group">
+            <label>من تاريخ</label>
+            <input asp-for="imagefromDate" type="date" id="fromDate" />
+        </div>
+
+        <div class="form-group">
+            <label>إلى تاريخ</label>
+            <input asp-for="imagetoDate" type="date" id="toDate" />
+        </div>
+
+        <button type="button" class="btn-save" onclick="confirmSave()">
+            حفظ التعديلات
+        </button>
+    </form>
+</div>
+
+
+<div class="modal fade" id="saveModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">تأكيد التعديل</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body text-center">
+                هل تريد حفظ التعديلات؟
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-light" data-bs-dismiss="modal">لا</button>
+                <button class="btn btn-primary" onclick="saveItem()">نعم</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var img = document.getElementById("imgPreview");
+            img.src = reader.result;
+            img.style.display = "block";
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function confirmSave() {
+        new bootstrap.Modal(document.getElementById('saveModal')).show();
+    }
+
+    function saveItem() {
+        document.querySelector("form").submit();
+    }
+</script>

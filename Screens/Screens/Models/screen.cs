@@ -10,7 +10,6 @@ namespace Screens.Models
         [Required(ErrorMessage = "الرجاء إدخال وصف الصورة"), MaxLength(200)]
         public string screenDescription { get; set; }
         public bool  screenStatus { get; set; }
-
-
+        public List<Image> Images { get; set; }
     }
 }
