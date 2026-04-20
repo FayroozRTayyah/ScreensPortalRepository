@@ -91,6 +91,18 @@
         display: inline-block;
     }
 
+    .edit-btn {
+        background: #0d6efd;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: 0.3s;
+        display: inline-block;
+    }
         .delete-btn:hover {
             background: #c0392b;
         }
@@ -102,6 +114,8 @@
     <a asp-controller="Home" asp-action="Create" class="add-btn">
         + إضافة صورة
     </a>
+
+  
 </div>
 
 <div class="gallery">
@@ -116,6 +130,13 @@
                 <p>@item.imageTitle</p>
                 <a href="#" class="delete-btn" onclick="confirmDelete(@item.imageID)">
                     حذف
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="Edit"
+                   asp-route-id="@item.imageID"
+                   class="edit-btn">
+                    تعديل
                 </a>
             </div>
 

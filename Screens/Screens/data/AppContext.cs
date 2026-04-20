@@ -17,9 +17,12 @@ namespace Screens.data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Image>()
+       .HasOne(i => i.screen)
+      .WithMany(s => s.Images)
+      .HasForeignKey(i => i.imageScreenId);
 
 
-           
         }
 
 

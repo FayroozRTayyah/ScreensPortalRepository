@@ -28,7 +28,7 @@ namespace Screens.Models
         [Required(ErrorMessage = "الرجاء اختيار الصورة")]
         public IFormFile ImageFile { get; set; }
 
-     
+        
         public Screen screen { get; set; }
 
     }

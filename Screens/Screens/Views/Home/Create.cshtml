@@ -109,6 +109,17 @@
             <input asp-for="imagetoDate" type="date" />
         </div>
 
+        <div class="form-group">
+            <label>ترتيب الصورة</label>
+            <input asp-for="imageOrder"  />
+
+        </div>
+        <div class="form-group">
+            <label>اختيار الشاشة</label>
+            <select asp-for="imageScreenId" asp-items="ViewBag.Screens"></select>
+
+        </div>
+       
         <button type="button" class="btn-save" onclick="confirmSave()">
             حفظ
         </button>
@@ -131,7 +142,7 @@
             <!-- Body -->
             <div class="modal-body text-center py-4">
 
-              
+               
 
                 <p class="mt-3 fs-6 text-secondary">
                     هل أنت متأكد أنك تريد حفظ هذه الصورة؟
@@ -178,11 +189,19 @@
 
 <script>
 
-    document.querySelector("form").addEventListener("submit", function (e) {
+ 
+
+        
+
+</script>
+
+<script>
+    function confirmSave() {
+
 
         let isValid = true;
 
-       
+
         let title = document.querySelector("[name='imageTitle']");
         let desc = document.querySelector("[name='imageDescription']");
         let file = document.querySelector("[name='ImageFile']");
@@ -211,7 +230,7 @@
             fromDate.style.border = "2px solid red";
             isValid = false;
         }
-        
+
          // toDate validation
         if(toDate.value.trim() === ""){
             toDate.style.border = "2px solid red";
@@ -242,9 +261,9 @@
                             "showMethod": "fadeIn",
                             "hideMethod": "fadeOut"
                         })
-                    
 
-              
+
+
                 isValid = false;
             }
         }
@@ -276,7 +295,7 @@
                             "showMethod": "fadeIn",
                             "hideMethod": "fadeOut"
                         })
-      
+
         file.style.border = "2px solid red";
         isValid = false;
     }
@@ -302,7 +321,7 @@
                             "hideMethod": "fadeOut"
                         })
 
-        
+
         isValid = false;
     }
 
@@ -311,15 +330,9 @@
             e.preventDefault();
         }
 
-    });
-
-
         
 
-</script>
 
-<script>
-    function confirmSave() {
         var modal = new bootstrap.Modal(document.getElementById('saveModal'));
         modal.show();
     }
