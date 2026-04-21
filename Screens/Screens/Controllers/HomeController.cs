@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Screens.data;
+using Screens.Migrations;
 using Screens.Models;
 using System.Diagnostics;
 using System.Linq;
@@ -35,7 +36,16 @@ namespace Screens.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            ViewBag.Screens = _context.screens
+                  .Select(s => new SelectListItem
+                  {
+                      Value = s.screenId.ToString(),
+                      Text = s.screenName
+                  }).ToList();
+            var image = new Screens.Models.Image();
+            int order = _context.images.Max(x => x.imageOrder);
+            image.imageOrder = order + 1;
+            return View(image);
         }
 
         [HttpPost]
@@ -43,13 +53,14 @@ namespace Screens.Controllers
         public IActionResult Create(Screens.Models.Image model)
         {
             ModelState.Remove("imageBath");
-         ModelState.Remove("screen");
+            ModelState.Remove("screen");
 
             if (model.ImageFile == null)
             {
                 ModelState.AddModelError("ImageFile", "الرجاء اختيار صورة");
             }
-
+           
+           
             if (!ModelState.IsValid)
             {
                  return View(model); 

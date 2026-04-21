@@ -20,27 +20,17 @@ namespace Screens.Controllers
             _logger = logger;
             _context = context;
         }
-        public IActionResult Index(int imageID,int screenID )
-        {
-
-            if (screenID == 2)
-            {
+        public IActionResult Index(int screenID )
+        {                       
                 var images = _context.images
-                       .Where(x => x.image_status == 1 && x.imageID == imageID && x.imageScreenId == screenID)
-
-                       .ToList();
-
-            }
-            else
-            { 
-                var images = _context.images
-                               .Where(x => x.image_status == 1 && x.imageID == imageID && x.imageScreenId == screenID)
-
+                               .Where(x => x.image_status == 1  && (x.imageScreenId == screenID || x.imageScreenId == 2) && (DateTime.UtcNow >x.imagefromDate) && (DateTime.UtcNow<x.imagetoDate ))
                                .ToList();
-            }
+                return View(images);
+
+            
                
 
-            return View(images);
+            //return View(images);
            
         }
     }
