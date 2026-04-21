@@ -1,5 +1,80 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Screen Slider</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Owl Carousel -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="owl-carousel owl-theme">
+        <div class="item">
+            <img src="https://localhost:7094/uploads/6b69b444-158b-47ed-abfb-433f23cc2748.png" />
+        </div>
+
+        <div class="item">
+            <img src="https://localhost:7094/uploads/6b69b444-158b-47ed-abfb-433f23cc2748.png" />
+        </div>
+    </div>
+
+    <!-- jQuery (ONLY ONCE) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel({
+                items: 1,
+                loop: true,
+                autoplay: true,
+                autoplayTimeout: 60000,
+                autoplayHoverPause: false,
+                nav: false
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+@* @model List<Screens.Models.Image>
+<div class="owl-carousel owl-theme">
+    @foreach (var item in Model)
+    {
+        <div class="item">
+            <img src="@Url.Content("https://localhost:7094" + item.imageBath)"
+                 style="width:100%; height:400px; object-fit:cover; border-radius:10px;" />
+        </div>
+    }
+</div>
+<script src="vendor/jquery-3.5.1.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/owlcarousel/js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+<script>
+      $(document).ready(function(){
+        $(".owl-carousel").owlCarousel({
+            items: 1,
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 60000, // 1 minute
+            autoplayHoverPause: false,
+            nav: false,
+        });
+    });
+</script> *@

@@ -3,5 +3,6 @@
     public class global
     {
         public const int allScreens = 2;
+        String imageUrlBased = "";
     }
 }
