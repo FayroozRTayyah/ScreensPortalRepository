@@ -1,5 +1,22 @@
 ﻿@model List<Screens.Models.Image>
 
+  <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    img {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    /* .owl-dots {
+        display: none;
+    } */
+  </style>
+
 <div class="owl-carousel owl-theme">
     @foreach (var item in Model)
     {
@@ -9,46 +26,18 @@
         </div>
     }
 </div>
-<script>
 
-
-    $(document).ready(function () {
-        $(".owl-carousel").owlCarousel({
-            items: 1,
-            loop: false,
-            autoplay: false,
-            nav: false,
-            dots: true,
-            mouseDrag: true,
-            touchDrag: true
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".owl-carousel").owlCarousel({
+                items: 1,
+                loop: true,
+                nav: false,
+                dots: true,
+                mouseDrag: true,
+                touchDrag: true
+            });
         });
-    });
-</script>
-
-
-@* @model List<Screens.Models.Image>
-<div class="owl-carousel owl-theme">
-    @foreach (var item in Model)
-    {
-        <div class="item">
-            <img src="@Url.Content("https://localhost:7094" + item.imageBath)"
-                 style="width:100%; height:400px; object-fit:cover; border-radius:10px;" />
-        </div>
-    }
-</div>
-<script src="vendor/jquery-3.5.1.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="vendor/owlcarousel/js/owl.carousel.min.js"></script>
-<script src="js/main.js"></script>
-<script>
-      $(document).ready(function(){
-        $(".owl-carousel").owlCarousel({
-            items: 1,
-            loop: true,
-            autoplay: true,
-            autoplayTimeout: 60000, // 1 minute
-            autoplayHoverPause: false,
-            nav: false,
-        });
-    });
-</script> *@
+    </script>
+}
