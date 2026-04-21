@@ -103,6 +103,12 @@
             <label>إلى تاريخ</label>
             <input asp-for="imagetoDate" type="date" id="toDate" />
         </div>
+        <div class="form-group">
+            <label>ترتيب الصورة</label>
+            <input asp-for="imageOrder" readonly="@(Model.imageOrder == 1)" />
+
+        </div>
+
 
         <button type="button" class="btn-save" onclick="confirmSave()">
             حفظ التعديلات

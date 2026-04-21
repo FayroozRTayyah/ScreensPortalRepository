@@ -111,7 +111,7 @@
 
         <div class="form-group">
             <label>ترتيب الصورة</label>
-            <input asp-for="imageOrder"  />
+            <input asp-for="imageOrder" readonly="@(Model.imageOrder == 1)" />
 
          </div>
       
