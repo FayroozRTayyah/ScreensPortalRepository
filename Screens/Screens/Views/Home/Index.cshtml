@@ -129,7 +129,7 @@
 <!-- Header -->
 <div class="header">
     <h2>معرض الصور</h2>
-    <a asp-action="Create" class="add-btn">+ إضافة صورة</a>
+    <a asp-action="Create" asp-route-screenID="@ViewBag.SelectedScreen" class="add-btn">+ إضافة صورة</a>
 </div>
 
 <!-- Gallery -->

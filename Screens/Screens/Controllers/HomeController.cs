@@ -28,12 +28,12 @@ namespace Screens.Controllers
 
             var screens = _context.screens.ToList();
             ViewBag.Screens = screens;
-            int selectedScreen = screenID ?? 2; 
+            int selectedScreen = screenID ?? global.allScreens; 
             ViewBag.SelectedScreen = selectedScreen;
 
             var images = _context.images
 
-                 .Where(x => x.image_status == 1 && (x.imageScreenId == screenID || x.imageScreenId == 2) && (DateTime.UtcNow > x.imagefromDate) && (DateTime.UtcNow < x.imagetoDate))
+                 .Where(x => x.image_status == 1 && (x.imageScreenId == screenID || x.imageScreenId == global.allScreens) && (DateTime.UtcNow > x.imagefromDate) && (DateTime.UtcNow < x.imagetoDate))
                        .OrderBy(x => x.imageOrder)
                 .ToList();
 
@@ -50,9 +50,18 @@ namespace Screens.Controllers
             //          Text = s.screenName
             //      }).ToList();
             var image = new Screens.Models.Image();
+
             int order = _context.images.Max(x => x.imageOrder);
-           
-            image.imageOrder = order + 1;
+            if (global.allScreens == screenId)
+            {
+                image.imageOrder = 1;
+
+            }
+            else
+            {
+               image.imageOrder = order + 1;
+            }
+               
             return View(image);
         }
 
@@ -90,7 +99,8 @@ namespace Screens.Controllers
 
             model.image_status = 1;
             model.imageBath = "/uploads/" + fileName;
-            if (global.allScreens ==global.allScreens  )
+
+            if (global.allScreens ==model.imageScreenId   )
             {
                 model.imageOrder = 1;
 
