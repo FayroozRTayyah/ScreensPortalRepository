@@ -6,6 +6,7 @@ using Screens.data;
 using Screens.Migrations;
 using Screens.Models;
 using System.Diagnostics;
+
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -34,16 +35,17 @@ namespace Screens.Controllers
         }
   
 
-        public IActionResult Create()
+        public IActionResult Create(int screenId)
         {
-            ViewBag.Screens = _context.screens
-                  .Select(s => new SelectListItem
-                  {
-                      Value = s.screenId.ToString(),
-                      Text = s.screenName
-                  }).ToList();
+            //ViewBag.Screens = _context.screens
+            //      .Select(s => new SelectListItem
+            //      {
+            //          Value = s.screenId.ToString(),
+            //          Text = s.screenName
+            //      }).ToList();
             var image = new Screens.Models.Image();
             int order = _context.images.Max(x => x.imageOrder);
+           
             image.imageOrder = order + 1;
             return View(image);
         }
@@ -82,8 +84,12 @@ namespace Screens.Controllers
 
             model.image_status = 1;
             model.imageBath = "/uploads/" + fileName;
-            
-            
+            if (global.allScreens ==global.allScreens  )
+            {
+                model.imageOrder = 1;
+
+            }
+
 
 
             _context.images.Add(model);
