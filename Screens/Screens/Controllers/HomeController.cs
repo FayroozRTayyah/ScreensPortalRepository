@@ -22,12 +22,18 @@ namespace Screens.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? screenID)
         {
+
+            var screens = _context.screens.ToList();
+            ViewBag.Screens = screens;
+            int selectedScreen = screenID ?? 2; 
+            ViewBag.SelectedScreen = selectedScreen;
+
             var images = _context.images
-                   
-                .Where(x => x.image_status == 1)
-                
+
+                 .Where(x => x.image_status == 1 && (x.imageScreenId == screenID || x.imageScreenId == 2) && (DateTime.UtcNow > x.imagefromDate) && (DateTime.UtcNow < x.imagetoDate))
+                       .OrderBy(x => x.imageOrder)
                 .ToList();
 
             return View(images);
