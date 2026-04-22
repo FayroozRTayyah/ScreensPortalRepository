@@ -23,8 +23,8 @@ namespace Screens.Controllers
         public IActionResult Index(int screenID )
         {                       
                 var images = _context.images
-                              // .Where(x => x.image_status == 1 && (x.imageScreenId == screenID || x.imageScreenId == 2) && (DateTime.UtcNow > x.imagefromDate) && (DateTime.UtcNow < x.imagetoDate))
-                              //.OrderBy(x => x.imageOrder)
+                               .Where(x => x.image_status == 1  && (x.imageScreenId == screenID || x.imageScreenId == 2) && (DateTime.UtcNow >x.imagefromDate) && (DateTime.UtcNow<x.imagetoDate ))
+                              .OrderBy(x => x.imageOrder)
                                .ToList();
                 return View(images);
 

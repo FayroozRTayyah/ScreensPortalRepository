@@ -47,7 +47,10 @@ namespace Screens.Controllers
 
             var image = new Screens.Models.Image();
 
-            int order = _context.images.Max(x => x.imageOrder);
+            int order = _context.images
+                .Where(x => x.imageScreenId == screenId)
+                .Max(x => x.imageOrder);
+           
             //if (global.allScreens == screenId)
             //{
             //    image.imageOrder = 1;
@@ -55,12 +58,13 @@ namespace Screens.Controllers
             //}
             //else
             //{
-            //   image.imageOrder = order + 1;
+            //    image.imageOrder = order + 1;
             //}
 
             image.screen = screen;
-               
+            image.imageOrder = order + 1;
             return View(image);
+     
         }
 
         [HttpPost]
