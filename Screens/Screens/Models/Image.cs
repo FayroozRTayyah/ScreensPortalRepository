@@ -31,5 +31,8 @@ namespace Screens.Models
         
         public Screen screen { get; set; }
 
+        [NotMapped]
+        public int imageCount { get; set; }
+
     }
 }

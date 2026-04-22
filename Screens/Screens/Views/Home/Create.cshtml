@@ -111,7 +111,7 @@
     <h2>بيانات الصورة</h2>
 
     <form asp-action="Create" method="post" enctype="multipart/form-data">
-       
+
         @Html.AntiForgeryToken()
 
         <div class="form-group">
@@ -130,8 +130,8 @@
             <img id="imgPreview" class="preview" />
         </div>
         <hidden asp-for="imageBath" id="imageBath"></hidden>
-     
-   
+        <input type="hidden" asp-for="imageScreenId" />
+
         <span asp-validation-for="ImageFile" class="text-danger"></span>
 
         @* <div class="form-group">
@@ -141,27 +141,21 @@
 
         <div class="form-group">
             <label>من تاريخ</label>
-            <input asp-for="imagefromDate" type="date" />
+            <input asp-for="imagefromDate" type="datetime-local" />
         </div>
 
         <div class="form-group">
             <label>إلى تاريخ</label>
-            <input asp-for="imagetoDate" class="form-control" type="date" />
+            <input asp-for="imagetoDate" class="form-control" type="datetime-local" />
         </div>
-
-
 
         <div class="form-group">
-            <label>
-                ترتيب الصورة
-                <span class="text-success">
-                   اعلى ترتيب  (@Model.imageOrder)
-                </span>
-            </label>
+            <label>@Model.imageCount</label>
+            <input asp-for="imageOrder" />
 
-            <input asp-for="imageOrder" class="form-control" />
         </div>
-       
+
+
         <button type="button" class="btn-save" onclick="confirmSave()">
             حفظ
         </button>
@@ -184,7 +178,7 @@
             <!-- Body -->
             <div class="modal-body text-center py-4">
 
-               
+
 
                 <p class="mt-3 fs-6 text-secondary">
                     هل أنت متأكد أنك تريد حفظ هذه الصورة؟
@@ -231,9 +225,9 @@
 
 <script>
 
- 
 
-        
+
+
 
 </script>
 
@@ -367,12 +361,12 @@
         isValid = false;
     }
 
-        // منع الإرسال إذا في خطأ
+       
         if (!isValid) {
             e.preventDefault();
         }
 
-        
+
 
 
         var modal = new bootstrap.Modal(document.getElementById('saveModal'));

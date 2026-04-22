@@ -33,7 +33,7 @@ namespace Screens.Controllers
 
             var images = _context.images
 
-                 .Where(x => x.image_status == 1 && (x.imageScreenId == screenID || x.imageScreenId == global.allScreens) && (DateTime.UtcNow > x.imagefromDate) && (DateTime.UtcNow < x.imagetoDate))
+                 .Where(x => x.image_status == 1 && (x.imageScreenId == screenID || x.imageScreenId == global.allScreens) && (x.imagetoDate >= DateTime.Now) && (x.imagefromDate <= DateTime.Now))
                        .OrderBy(x => x.imageOrder)
                 .ToList();
 
@@ -46,14 +46,16 @@ namespace Screens.Controllers
             var screen = _context.screens.FirstOrDefault(s => s.screenId == screenId);
 
             var image = new Screens.Models.Image();
+            int count = _context.images
+              .Count(x => x.image_status == 1 && (x.imageScreenId == screenId || x.imageScreenId == 2) && (DateTime.Now > x.imagefromDate) && (DateTime.Now < x.imagetoDate));
 
-            int order = _context.images
-                .Where(x => x.imageScreenId == screenId)
-                .Select(x => (int?)x.imageOrder)
-                .Max() ?? 0;
-              
-           
-           
+            //int order = _context.images
+            //    .Where(x => x.imageScreenId == screenId)
+            //    .Select(x => (int?)x.imageOrder)
+            //    .Max() ?? 0;
+
+
+
 
             //if (global.allScreens == screenId)
             //{
@@ -64,9 +66,9 @@ namespace Screens.Controllers
             //{
             //    image.imageOrder = order + 1;
             //}
-
+            image.imageScreenId = screenId;
             image.screen = screen;
-            image.imageOrder = order + 1;
+            image.imageCount = count;
             return View(image);
      
         }
@@ -104,7 +106,7 @@ namespace Screens.Controllers
             }
 
             model.image_status = 1;
-
+          
             model.imageBath = "/uploads/" + fileName;
 
             //if (global.allScreens ==model.imageScreenId   )
@@ -170,6 +172,7 @@ namespace Screens.Controllers
 
                 image.imageTitle = model.imageTitle;
                 image.imagefromDate = model.imagefromDate;
+                image.imageOrder = model.imageOrder;
 
                 image.imageDescription = model.imageDescription;
                 image.imagetoDate = model.imagetoDate;
