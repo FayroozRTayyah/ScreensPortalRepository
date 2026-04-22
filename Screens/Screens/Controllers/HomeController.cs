@@ -49,8 +49,12 @@ namespace Screens.Controllers
 
             int order = _context.images
                 .Where(x => x.imageScreenId == screenId)
-                .Max(x => x.imageOrder);
+                .Select(x => (int?)x.imageOrder)
+                .Max() ?? 0;
+              
            
+           
+
             //if (global.allScreens == screenId)
             //{
             //    image.imageOrder = 1;
