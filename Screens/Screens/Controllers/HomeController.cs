@@ -43,24 +43,22 @@ namespace Screens.Controllers
 
         public IActionResult Create(int screenId)
         {
-            //ViewBag.Screens = _context.screens
-            //      .Select(s => new SelectListItem
-            //      {
-            //          Value = s.screenId.ToString(),
-            //          Text = s.screenName
-            //      }).ToList();
+            var screen = _context.screens.FirstOrDefault(s => s.screenId == screenId);
+
             var image = new Screens.Models.Image();
 
             int order = _context.images.Max(x => x.imageOrder);
-            if (global.allScreens == screenId)
-            {
-                image.imageOrder = 1;
+            //if (global.allScreens == screenId)
+            //{
+            //    image.imageOrder = 1;
 
-            }
-            else
-            {
-               image.imageOrder = order + 1;
-            }
+            //}
+            //else
+            //{
+            //   image.imageOrder = order + 1;
+            //}
+
+            image.screen = screen;
                
             return View(image);
         }
@@ -98,13 +96,14 @@ namespace Screens.Controllers
             }
 
             model.image_status = 1;
+
             model.imageBath = "/uploads/" + fileName;
 
-            if (global.allScreens ==model.imageScreenId   )
-            {
-                model.imageOrder = 1;
+            //if (global.allScreens ==model.imageScreenId   )
+            //{
+            //    model.imageOrder = 1;
 
-            }
+            //}
 
 
 
