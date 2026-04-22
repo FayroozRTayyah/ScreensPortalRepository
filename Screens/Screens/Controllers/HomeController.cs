@@ -50,16 +50,7 @@ namespace Screens.Controllers
             int order = _context.images
                 .Where(x => x.imageScreenId == screenId)
                 .Max(x => x.imageOrder);
-           
-            //if (global.allScreens == screenId)
-            //{
-            //    image.imageOrder = 1;
-
-            //}
-            //else
-            //{
-            //    image.imageOrder = order + 1;
-            //}
+      
 
             image.screen = screen;
             image.imageOrder = order + 1;
