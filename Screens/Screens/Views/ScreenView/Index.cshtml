@@ -7,17 +7,33 @@
         height: 100%;
     }
 
-    /* img {
-        width: 100vw;
+    /* السلايدر ياخذ كامل الشاشة */
+    .owl-carousel,
+    .owl-stage-outer,
+    .owl-stage,
+    .owl-item,
+    .item {
         height: 100vh;
-    } */
+    }
 
+        /* الصورة */
+        .item img {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+    /* إخفاء النقاط */
     .owl-dots {
         display: none;
     }
+
+    .owl-carousel {
+        display: block !important;
+    }
   </style>
 
-<div class="owl-carousel owl-theme">
+<div class="owl-carousel owl-theme owl-loaded">
     @foreach (var item in Model)
     {
         <div class="item">
@@ -29,14 +45,15 @@
 
 @section Scripts {
     <script>
-          $(document).ready(function(){
+               $(document).ready(function () {
             $(".owl-carousel").owlCarousel({
                 items: 1,
                 loop: true,
                 autoplay: true,
-                autoplayTimeout: 60000, // 1 minute
+                autoplayTimeout: 60000,
                 autoplayHoverPause: false,
                 nav: false,
+                dots: false
             });
         });
     </script>
