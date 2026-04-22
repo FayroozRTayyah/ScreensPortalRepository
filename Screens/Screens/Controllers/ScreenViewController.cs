@@ -24,7 +24,7 @@ namespace Screens.Controllers
         public IActionResult Index(int screenID )
         {                       
                 var images = _context.images
-                               .Where(x => x.image_status == 1  && (x.imageScreenId == screenID || x.imageScreenId == global.allScreens) && (DateTime.UtcNow >x.imagefromDate) && (DateTime.UtcNow<x.imagetoDate ))
+                               .Where(x => x.image_status == 1  && (x.imageScreenId == screenID || x.imageScreenId == global.allScreens) && (DateTime.UtcNow >=x.imagefromDate) && (DateTime.UtcNow<=x.imagetoDate ))
                               .OrderBy(x => x.imageOrder)
                                .ToList();
                 return View(images);

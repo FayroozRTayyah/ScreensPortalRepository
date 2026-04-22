@@ -33,7 +33,7 @@ namespace Screens.Controllers
 
             var images = _context.images
 
-                 .Where(x => x.image_status == 1 && (x.imageScreenId == screenID || x.imageScreenId == global.allScreens) && (x.imagetoDate >= DateTime.Now) && (x.imagefromDate <= DateTime.Now))
+                 .Where(x => x.image_status == 1 && (x.imageScreenId == screenID || x.imageScreenId == global.allScreens) && (x.imagetoDate >= DateTime.UtcNow) && (x.imagefromDate <= DateTime.UtcNow))
                        .OrderBy(x => x.imageOrder)
                 .ToList();
 
@@ -47,7 +47,7 @@ namespace Screens.Controllers
 
             var image = new Screens.Models.Image();
             int count = _context.images
-              .Count(x => x.image_status == 1 && (x.imageScreenId == screenId || x.imageScreenId == 2) && (DateTime.Now > x.imagefromDate) && (DateTime.Now < x.imagetoDate));
+              .Count(x => x.image_status == 1 && (x.imageScreenId == screenId || x.imageScreenId == 2) && (DateTime.UtcNow >= x.imagefromDate) && (DateTime.UtcNow <= x.imagetoDate));
 
             //int order = _context.images
             //    .Where(x => x.imageScreenId == screenId)
