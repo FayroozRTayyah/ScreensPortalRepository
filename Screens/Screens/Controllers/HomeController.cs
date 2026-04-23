@@ -119,8 +119,9 @@ namespace Screens.Controllers
 
             _context.images.Add(model);
             _context.SaveChanges();
+            TempData["SuccessMessage"] = "تم حفظ الصورة بنجاح";
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",new { screenID = model.imageScreenId });
         }
 
 
@@ -179,8 +180,9 @@ namespace Screens.Controllers
 
                 
                 _context.images.Update(image);
-               
+
                 _context.SaveChanges();
+                TempData["SuccessMessage"] = "تم تعديل الصورة بنجاح";
                 return RedirectToAction("Index");
             }
         return View (model);

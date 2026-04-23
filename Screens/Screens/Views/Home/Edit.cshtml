@@ -104,8 +104,13 @@
             <input asp-for="imagetoDate" type="date" id="toDate" />
         </div>
         <div class="form-group">
+
+            <span class="text-success fw-bold">
+                أعلى ترتيب حالي: @Model.imageCount
+            </span>
+
             <label>ترتيب الصورة</label>
-            <input asp-for="imageOrder" />
+            <input asp-for="imageOrder" class="form-control" />
 
         </div>
 
