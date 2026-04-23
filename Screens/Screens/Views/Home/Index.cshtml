@@ -152,17 +152,21 @@
 
 @if (TempData["SuccessMessage"] != null)
 {
+    var msg = TempData["SuccessMessage"]?.ToString();
+    TempData.Remove("SuccessMessage");
+
     <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
-        <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert">
+        <div id="successToast" class="toast align-items-center text-white bg-success border-0">
             <div class="d-flex">
                 <div class="toast-body">
-                    @TempData["SuccessMessage"]
+                    @msg
                 </div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
             </div>
         </div>
     </div>
 }
+
 
 
 <!-- TOP BAR -->
@@ -242,17 +246,17 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function () {
+
+        // إذا الصفحة جاية من Back
+        if (performance.navigation.type === 2) {
+            return; // 
+        }
+
         var successEl = document.getElementById('successToast');
         if (successEl) {
             var successToast = new bootstrap.Toast(successEl);
             successToast.show();
-        }
-
-        var errorEl = document.getElementById('errorToast');
-        if (errorEl) {
-            var errorToast = new bootstrap.Toast(errorEl);
-            errorToast.show();
         }
     });
 </script>

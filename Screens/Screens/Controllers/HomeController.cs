@@ -183,7 +183,7 @@ namespace Screens.Controllers
 
                 _context.SaveChanges();
                 TempData["SuccessMessage"] = "تم تعديل الصورة بنجاح";
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { screenID = model.imageScreenId });
             }
         return View (model);
         }
