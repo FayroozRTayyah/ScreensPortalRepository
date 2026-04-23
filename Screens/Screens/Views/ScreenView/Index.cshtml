@@ -47,8 +47,9 @@
             nav: false,
             rtl: true,
             autoplay: true,
-            autoplayTimeout: 15000,
-          items:1
+             items:1,
+            autoplayTimeout: @(ViewBag.AutoplayTimeout ?? 60000)
+         
         });
     });
 </script>
