@@ -25,13 +25,15 @@
     }
 
     .add-btn {
-        background: linear-gradient(135deg, #122e59, #1f4aa8);
+        background: linear-gradient(135deg, #122e59, #dc3545);
         color: white;
         padding: 10px 18px;
         border-radius: 10px;
         text-decoration: none;
         font-weight: 600;
         transition: 0.3s;
+        margin-right: auto;
+       
     }
 
         .add-btn:hover {
@@ -40,12 +42,7 @@
         }
 
     /* ===== TABS ===== */
-    .tabs {
-        display: flex;
-        gap: 10px;
-        padding: 0 20px 20px;
-        flex-wrap: wrap;
-    }
+
 
     .tab {
         padding: 8px 14px;
@@ -56,6 +53,18 @@
         font-weight: 600;
         transition: 0.3s;
         border: 1px solid transparent;
+    }
+
+    .tabs-wrapper {
+        display: flex;
+        align-items: center;
+        padding: 0 20px 20px;
+    }
+
+    .tabs {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
     }
 
         .tab:hover {
@@ -148,6 +157,11 @@
     .modal-content {
         border-radius: 12px;
     }
+
+    .screen-name {
+        color: #ffd700; /* ذهبي */
+        font-weight: bold;
+    }
 </style>
 
 @if (TempData["SuccessMessage"] != null)
@@ -173,25 +187,54 @@
 <div class="topbar">
     <div class="title">🖼️ معرض الصور</div>
 
-    <a asp-action="Create"
+    @* <a asp-action="Create"
        asp-route-screenID="@ViewBag.SelectedScreen"
        class="add-btn">
         + إضافة صورة
-    </a>
+    </a> *@
 </div>
 
 <!-- TABS -->
-<div class="tabs">
-    @foreach (var s in ViewBag.Screens)
-    {
-        <a href="/Home/Index?screenID=@s.screenId"
-           class="tab @(ViewBag.SelectedScreen == s.screenId ? "active" : "")">
-            @s.screenName
-        </a>
-    }
+<div class="tabs-wrapper">
+
+    <div class="tabs">
+        @foreach (var s in ViewBag.Screens)
+        {
+            <a href="/Home/Index?screenID=@s.screenId"
+               class="tab @(ViewBag.SelectedScreen == s.screenId ? "active" : "")">
+                @s.screenName
+            </a>
+        }
+       
+    </div>
+
+
+   
+
 </div>
+@{
+    var selectedName = "";
+    foreach (var s in ViewBag.Screens)
+    {
+        if (ViewBag.SelectedScreen == s.screenId)
+        {
+            selectedName = s.screenName;
+            break;
+        }
+    }
+}
 
 <!-- GALLERY -->
+<div class="mt-5 mb-3 ">
+    <a asp-action="Create"
+       asp-route-screenID="@ViewBag.SelectedScreen"
+       class="add-btn">
+        إضافة صورة على شاشة
+        <span class="screen-name">@selectedName</span>
+    </a>
+</div>
+
+
 <div class="gallery">
     @foreach (var item in Model)
     {
@@ -214,7 +257,11 @@
             </div>
         </div>
     }
+
+   
 </div>
+
+
 
 <!-- MODAL -->
 <div class="modal fade" id="deleteModal" tabindex="-1">
