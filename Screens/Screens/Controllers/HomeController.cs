@@ -154,6 +154,8 @@ namespace Screens.Controllers
         {
             var image = _context.images.FirstOrDefault(x => x.imageID == id);
 
+            
+
             if (image == null)
                 return NotFound();
 
@@ -165,11 +167,20 @@ namespace Screens.Controllers
         [RequireAntiforgeryToken]
         [HttpPost]
         public IActionResult Edit(Screens.Models.Image model) {
-            var image = _context.images.FirstOrDefault(x => x.imageID == model.imageID);
-            
+
+
+            var image = _context.images.FirstOrDefault(x => x.imageID == model.imageID)
+           ;
+            ModelState.Remove("ImageFile");
+            ModelState.Remove("screen");
+            ModelState.Remove("imageBath");
+          
+
 
             if (!ModelState.IsValid)
             {
+                return View(model);
+            }
 
                 image.imageTitle = model.imageTitle;
                 image.imagefromDate = model.imagefromDate;
@@ -183,9 +194,9 @@ namespace Screens.Controllers
 
                 _context.SaveChanges();
                 TempData["SuccessMessage"] = "تم تعديل الصورة بنجاح";
-                return RedirectToAction("Index", new { screenID = model.imageScreenId });
-            }
-        return View (model);
+                return RedirectToAction("Index", new { screenID = image.imageScreenId });
+           
+       
         }
     }
 }

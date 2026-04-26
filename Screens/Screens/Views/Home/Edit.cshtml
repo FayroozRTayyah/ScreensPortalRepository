@@ -85,7 +85,8 @@
 
         <div class="form-group">
             <label>الصورة الحالية</label>
-            <img src="@Model.imageBath" class="preview" />
+
+            <img asp-for="@Model.imageBath" src="@Model.imageBath" class="preview" />
         </div>
 
         @* <div class="form-group">
