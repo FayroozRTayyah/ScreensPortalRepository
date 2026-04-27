@@ -1,0 +1,132 @@
+﻿@model Screens.Models.AccountViewModels.LoginViewModel
+
+@{
+    Layout = "_LayoutLogin";
+    ViewData["Title"] = "Log in";
+}
+
+
+
+<div class="bg">
+    <div class="login-card">
+        <h2 class="text-center">تسجيل الدخول</h2>
+        <form id="loginForm" asp-action="Login" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="EmployeeNo">اسم المستخدم</label>
+                <input asp-for="EmployeeNo" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password">كلمة المرور</label>
+                <input asp-for="Password" class="form-control" />
+            </div>
+
+            <div class="form-group form-check">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <label asp-for="RememberMe" class="form-check-label">تذكرني</label>
+            </div>
+
+            <button id="btnLogin" type="submit" class="btn btn-primary w-100">تسجيل دخول</button>
+
+            <span class="footer text-muted text-center d-block mt-4" style="font-size: .9rem;">قسم انظمة وتكنولوجيا المعلومات &copy; 2025</span>
+        </form>
+    </div>
+</div>
+
+<!-- Full page submit overlay -->
+<div id="submitOverlay" aria-hidden="true">
+    <div class="spinner" role="status" aria-label="جاري المعالجة"></div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        @{
+                    var errorMsg = ViewBag.ErrorMsg;
+        }
+
+        const errorMsg = "@errorMsg";
+        if(errorMsg) {
+           toastr["error"](errorMsg, "", {
+               "closeButton": true,
+               "debug": false,
+               "newestOnTop": true,
+               "progressBar": true,
+               "positionClass": "toast-top-left",
+               "preventDuplicates": true,
+               "onclick": null,
+               "showDuration": "300",
+               "hideDuration": "1000",
+               "timeOut": "3000",
+               "extendedTimeOut": "1000",
+               "showEasing": "swing",
+               "hideEasing": "linear",
+               "showMethod": "fadeIn",
+               "hideMethod": "fadeOut"
+           });
+        }
+
+        (function () {
+            var $form = $("#loginForm");
+            var $btn = $("#btnLogin");
+            var $overlay = $("#submitOverlay");
+
+            $form.on('submit', function (e) {
+
+                // if client-side validation exists, only show overlay when form is valid
+                if ($.validator && !$form.valid()) {
+                    return true; // allow validation messages
+                }
+
+                if ($btn.prop('disabled')) {
+                    // prevent double submit
+                    e.preventDefault();
+                    return false;
+                }
+
+                $btn.prop('disabled', true).attr('aria-disabled', 'true');
+                $overlay.fadeIn(100);
+
+                // Let the form submit normally
+                return true;
+            });
+
+            // In case server returns the same page (validation error), re-enable the button
+            $(document).ready(function() {
+                // small delay to ensure any server-rendered errors are visible
+                setTimeout(function() {
+                    if ($form.find('.input-validation-error').length > 0 || $form.find('.text-danger:visible').length > 0) {
+                        $btn.prop('disabled', false).removeAttr('aria-disabled');
+                        $overlay.hide();
+                    }
+                }, 50);
+            });
+        })();
+    </script>
+}
+
+
+
+@*    if($('#EmployeeNo').val().trim()  === ""){
+                    toastr["error"]("يرجى ادخال اسم المستخدم", "", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": true,
+                        "progressBar": true,
+                        "positionClass": "toast-top-left",
+                        "preventDuplicates": true,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "3000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }); *@
