@@ -88,7 +88,7 @@ namespace Screens.Controllers
         [AllowAnonymous]
         public IActionResult AccessDenied(string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            ViewData["ReturnUrl"] = returnUrl; 
             return View();
         }
 

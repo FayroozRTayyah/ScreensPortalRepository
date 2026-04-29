@@ -146,3 +146,14 @@ input {
     font-size: 13px;
 
 }
+.nav-signout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #343a40;
+    text-decoration: none;
+}
+
+    .nav-signout:hover {
+        opacity: 0.8;
+    }

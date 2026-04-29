@@ -1,0 +1,232 @@
+
+
+:root {
+    --bg-color: #F5F5F9;
+    /*    --main-color: #131A48;*/
+    --main-color: #0056b3;
+    --white-color: #F9F9F9;
+    --green-color: #09452C;
+    --border-main-color: #4ac8d2;
+    --label-fore-color: #4e4e4e;
+    --loader-color: #C9DB4C;
+    --page-title-color: #6a1b9a;
+    /*    CARDS*/
+    --min-card-height: 120px;
+    --card-bg: #fff;
+    --value-font-size: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+/* ******** Scrollbar ********/
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    max-height: 40px;
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none !important;
+}
+
+b, strong {
+    font-family: 'aj-bold';
+}
+
+@font-face {
+    font-family: 'aj-bold';
+    src: url('../fonts/aj-bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'aj-light';
+    src: url('../fonts/aj-light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'aj-regular';
+    src: url('../fonts/aj-regular.ttf') format('truetype');
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    /*width: calc(100vw - 260px);*/
+}
+
+body {
+    margin-bottom: 60px;
+    font-family: "aj-regular" !important;
+   background-image: url('../uploads/bg-optimized.jpg');
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.bg {
+    /* background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000b8;
+}
+
+.login-card {
+    background: white;
+    padding: 30px 30px 17px 30px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px;
+}
+
+    .login-card h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background: var(--main-color);
+    border-color: var(--main-color);
+}
+
+    .btn-primary:hover {
+        color: #fff;
+        background: var(--main-color);
+        border-color: var(--main-color);
+        opacity: .9;
+    }
+
+    .btn-primary:active {
+        color: #fff;
+        background: var(--main-color);
+        border-color: var(--main-color);
+        opacity: .9;
+    }
+
+@media only screen and (max-width: 600px) {
+
+    .footer {
+        position: relative !important;
+    }
+}
+
+
+
+
+/*body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.bg {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px;
+}
+
+    .login-card h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+.form-group {
+    margin-bottom: 15px;
+}*/
+
+/* Full page submit overlay */
+#submitOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+    #submitOverlay .spinner {
+        width: 80px;
+        height: 80px;
+        border: 8px solid rgba(255,255,255,0.2);
+        border-top-color: var(--main-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
