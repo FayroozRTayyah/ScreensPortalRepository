@@ -30,8 +30,8 @@
         @foreach (var item in Model)
         {
             <div class="item">
-                @* <img src="@("https://localhost:7094" + item.imageBath)" /> *@
-                <img src="@Url.Content("~" + item.imageBath)" alt="image" />
+                 <img src="@(item.imageBath)" />
+           
             </div>
          
         }

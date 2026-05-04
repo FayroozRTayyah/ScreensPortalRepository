@@ -99,6 +99,7 @@ app.UseAuthorization();
 app.UseAntiforgery(); 
 
 app.MapStaticAssets();
+app.UseStaticFiles();
 
 app.MapControllerRoute(
     name: "default",
