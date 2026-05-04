@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,8 @@ namespace Screens.Controllers
             _logger = logger;
             _context = context;
         }
-
+        [Authorize]
+        [RequireAntiforgeryToken]
         public IActionResult Index(int? screenID)
         {
 
@@ -74,6 +76,7 @@ namespace Screens.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [RequireAntiforgeryToken]
         public IActionResult Create(Screens.Models.Image model)
         {
