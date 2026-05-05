@@ -27,7 +27,7 @@ namespace Screens.Controllers
             _imgpath = $"{_IWebHostEnvironment.WebRootPath}/assets/images";
         }
      
-        [Authorize]
+       
         [RequireAntiforgeryToken]
         public IActionResult Index(int? screenID)
         {
@@ -79,9 +79,61 @@ namespace Screens.Controllers
      
         }
 
+        //[HttpPost]
+
+        //[RequireAntiforgeryToken]
+        //public IActionResult Create(Screens.Models.Image model)
+        //{
+        //    ModelState.Remove("imageBath");
+        //    ModelState.Remove("screen");
+
+        //    if (model.ImageFile == null)
+        //    {
+        //        ModelState.AddModelError("ImageFile", "الرجاء اختيار صورة");
+        //    }
+
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //         return View(model); 
+        //    }
+
+        //    //string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+
+        //    //if (!Directory.Exists(folder))
+        //    //    Directory.CreateDirectory(folder);
+
+        //    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
+
+        //    string filePath = Path.Combine(_imgpath, fileName);
+
+        //    using (var stream = new FileStream(filePath, FileMode.Create))
+        //    {
+        //        model.ImageFile.CopyTo(stream);
+        //    }
+
+        //    model.image_status = 1;
+
+        //    model.imageBath = fileName;
+
+        //    //if (global.allScreens ==model.imageScreenId   )
+        //    //{
+        //    //    model.imageOrder = 1;
+
+        //    //}
+
+
+
+        //    _context.images.Add(model);
+        //    _context.SaveChanges();
+        //    TempData["SuccessMessage"] = "تم حفظ الصورة بنجاح";
+
+        //    return RedirectToAction("Index",new { screenID = model.imageScreenId });
+        //}
+
+
         [HttpPost]
-        [Authorize]
-        [RequireAntiforgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Screens.Models.Image model)
         {
             ModelState.Remove("imageBath");
@@ -91,21 +143,22 @@ namespace Screens.Controllers
             {
                 ModelState.AddModelError("ImageFile", "الرجاء اختيار صورة");
             }
-           
-           
+
             if (!ModelState.IsValid)
             {
-                 return View(model); 
+                return View(model);
             }
 
-            //string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
-         
-            //if (!Directory.Exists(folder))
-            //    Directory.CreateDirectory(folder);
+            
+            string folder = Path.Combine(_IWebHostEnvironment.WebRootPath, "uploads");
+
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
 
             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
-      
-            string filePath = Path.Combine(_imgpath, fileName);
+            string filePath = Path.Combine(folder, fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
@@ -113,26 +166,17 @@ namespace Screens.Controllers
             }
 
             model.image_status = 1;
-          
             model.imageBath = fileName;
-
-            //if (global.allScreens ==model.imageScreenId   )
-            //{
-            //    model.imageOrder = 1;
-
-            //}
-
-
 
             _context.images.Add(model);
             _context.SaveChanges();
+
             TempData["SuccessMessage"] = "تم حفظ الصورة بنجاح";
 
-            return RedirectToAction("Index",new { screenID = model.imageScreenId });
+            return RedirectToAction("Index", new { screenID = model.imageScreenId });
         }
 
 
-       
         public IActionResult Delete(int id)
         {
             var image = _context.images.FirstOrDefault(x => x.imageID == id);

@@ -30,7 +30,7 @@
         @foreach (var item in Model)
         {
             <div class="item">
-                 <img src="@(item.imageBath)" />
+                <img src="@Url.Content("~/uploads/" + item.imageBath)" />
            
             </div>
          

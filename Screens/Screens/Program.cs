@@ -100,6 +100,7 @@ app.UseAntiforgery();
 
 app.MapStaticAssets();
 app.UseStaticFiles();
+app.UseDeveloperExceptionPage();
 
 app.MapControllerRoute(
     name: "default",

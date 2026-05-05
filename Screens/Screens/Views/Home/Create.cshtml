@@ -29,7 +29,8 @@
             <input asp-for="ImageFile" type="file" accept="image/*" onchange="previewImage(event)" />
             <img id="imgPreview" class="preview" />
         </div>
-        <hidden asp-for="imageBath" id="imageBath"></hidden>
+        @* <hidden asp-for="imageBath" id="imageBath"></hidden> *@
+        <input type="hidden" asp-for="imageBath" />
         <input type="hidden" asp-for="imageScreenId" />
 
         <span asp-validation-for="ImageFile" class="text-danger"></span>
@@ -267,9 +268,9 @@
     }
 
        
-        if (!isValid) {
-            e.preventDefault();
-        }
+        // if (!isValid) {
+        //    e.preventDefault();
+        // }
 
 
 
