@@ -17,12 +17,16 @@ namespace Screens.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly AppDbContext _context;
-
-        public HomeController(ILogger<HomeController> logger, AppDbContext context)
+        private readonly IWebHostEnvironment _IWebHostEnvironment;
+        private string _imgpath;
+        public HomeController(ILogger<HomeController> logger, AppDbContext context, IWebHostEnvironment iWebHostEnvironment)
         {
             _logger = logger;
             _context = context;
+            _IWebHostEnvironment = iWebHostEnvironment;
+            _imgpath = $"{_IWebHostEnvironment.WebRootPath}/assets/images";
         }
+     
         [Authorize]
         [RequireAntiforgeryToken]
         public IActionResult Index(int? screenID)
@@ -94,14 +98,14 @@ namespace Screens.Controllers
                  return View(model); 
             }
 
-            string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
-
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
+            //string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+         
+            //if (!Directory.Exists(folder))
+            //    Directory.CreateDirectory(folder);
 
             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
-
-            string filePath = Path.Combine(folder, fileName);
+      
+            string filePath = Path.Combine(_imgpath, fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
@@ -110,7 +114,7 @@ namespace Screens.Controllers
 
             model.image_status = 1;
           
-            model.imageBath = "/uploads/" + fileName;
+            model.imageBath = fileName;
 
             //if (global.allScreens ==model.imageScreenId   )
             //{

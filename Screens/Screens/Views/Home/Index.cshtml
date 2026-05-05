@@ -266,9 +266,12 @@
 <div class="gallery">
     @foreach (var item in Model)
     {
+
         <div class="card">
-             <img src="@item.imageBath" /> 
-     
+
+            @* <img src="~/uploads/10c0ad70-3ade-4d64-ab85-1b655601c7b5.jpeg" /> *@
+            <img src="@item.imageBath" />
+            @* <img src="@Url.Content("~" + item.imageBath)" alt="image" /> *@
 
             <div class="info">
                 <h4>@item.imageTitle</h4>
