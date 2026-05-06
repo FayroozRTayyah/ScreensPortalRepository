@@ -13,6 +13,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Screens.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
