@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
-
+<meta http-equiv="refresh" content="60">
 <style>
     html, body {
         margin: 0;
@@ -26,9 +26,6 @@
 
 
 
-<button onclick="openFullscreen()" style="position:fixed;z-index:9999;">
-    Full Screen
-</button>
 
     <div class="owl-carousel owl-theme">
         @foreach (var item in Model)
@@ -61,10 +58,6 @@
         }
     }
 
-        document.addEventListener("click", function () {
-        openFullscreen();
-    }, { once: true });
-
 
     $(document).ready(function () {
 
@@ -79,5 +72,16 @@
             autoplayTimeout: @(ViewBag.AutoplayTimeout ?? 60000)
          
         });
+    });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+   
+
+        // Auto refresh
+        setInterval(function () {
+            location.reload();
+        }, 30000); // كل 5 دقائق
+
     });
 </script>
