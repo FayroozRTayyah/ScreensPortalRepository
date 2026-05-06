@@ -8,6 +8,7 @@
         margin: 0;
         padding: 0;
         height: 100%;
+        width: 100%;
     }
 
     img {
@@ -22,9 +23,12 @@
 @{
     Layout = null;
 }
-<div class="container-fluid p-0">
 
-  
+
+
+<button onclick="openFullscreen()" style="position:fixed;z-index:9999;">
+    Full Screen
+</button>
 
     <div class="owl-carousel owl-theme">
         @foreach (var item in Model)
@@ -37,13 +41,34 @@
         }
     </div>
 
-</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
 <script>
+
+        function openFullscreen() {
+        let elem = document.documentElement;
+
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        }
+        else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+        }
+        else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        }
+    }
+
+        document.addEventListener("click", function () {
+        openFullscreen();
+    }, { once: true });
+
+
     $(document).ready(function () {
+
+        openFullscreen();
         $(".owl-carousel").owlCarousel({
             loop: true,
             margin: 10,
