@@ -7,7 +7,7 @@
 
 
 
-<meta http-equiv="refresh" content="60">
+@* <meta http-equiv="refresh" content="60"> *@
 <style>
     html, body {
         margin: 0;
@@ -67,7 +67,7 @@
 
     $(document).ready(function () {
 
-        openFullscreen();
+        // openFullscreen();
         $(".owl-carousel").owlCarousel({
             loop: true,
             margin: 10,
@@ -87,7 +87,7 @@
         // Auto refresh
         setInterval(function () {
             location.reload();
-        }, @(ViewBag.IntervalTimeout ?? 30000)
+        }, @(ViewBag.IntervalTimeout ?? 300000)
         
         ); // كل 5 دقائق
 
